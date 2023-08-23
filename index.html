@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+  <!-- Your page's head content here -->
+
+
+
+
+
+
+
+
+
+
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+   
+
+    img {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px; /* Adjust the width as needed */
+      height: 200px; /* Adjust the height as needed */
+      transition: all 2s ease; /* Smooth transition for the image */
+    }
+
+    .page {
+      width: 100%;
+      height: 100vh;
+    }
+    #page1{
+      background-color: yellow;
+    }
+    #page2{
+      background-color: rgb(82, 82, 72);
+    }
+    #page3{
+      background-color: rgb(104, 118, 156);
+    }
+    #page4{
+      background-color: rgb(71, 121, 155);
+    }
+  </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+  
+    <div class="page" id="page1">
+    <!-- Content of the first page -->
+     <img src="./aaaaaaaaaaaa.png" alt="Your Image">
+   </div>
+
+    <div class="page" id="page2">
+    <!-- Content of the second page -->
+   </div>
+
+   <div class="page" id="page3">
+    <!-- Content of the third page -->
+    </div>
+
+   <div class="page" id="page4">
+    <!-- Content of the fourth page -->
+   </div>
+  
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const image = document.querySelector("img");
+      const pages = document.querySelectorAll(".page");
+      const pageWidth = window.innerWidth;
+      const imageWidth = image.clientWidth;
+      const offset = (pageWidth - imageWidth) / 2;
+
+      let currentPage = 0;
+
+      function moveImageTo(pageIndex) {
+        const newPosition =
+          pageIndex === 0
+            ? "50%"
+            : pageIndex === 1
+            ? `calc(50% - 30%)`
+            : pageIndex === 2
+            ? `calc(50% + 30%)`
+            : "50%";
+
+        image.style.left = newPosition;
+        currentPage = pageIndex;
+      }
+
+      function findCurrentPage() {
+        const scrollTop = window.scrollY;
+        let pageIndex = 0;
+        pages.forEach((page, index) => {
+          const pageTop = page.offsetTop;
+          if (scrollTop >= pageTop) {
+            pageIndex = index;
+          }
+        });
+        return pageIndex;
+      }
+
+      // Initial position
+      moveImageTo(0);
+
+      // Event listener to detect scroll and move the image accordingly
+      window.addEventListener("scroll", function () {
+        const pageIndex = findCurrentPage();
+        if (pageIndex !== currentPage) {
+          moveImageTo(pageIndex);
+        }
+      });
+    });
+  </script>
+
+</html>
